@@ -1,0 +1,28 @@
+{
+	"name" : "cscfa/datagrid-bundle",
+	"description" : "The DataGridBundle is a symfony2 datagrid rendering library",
+	"version" : "1.0.0",
+	"type" : "library",
+	"keywords" : [
+		"cscfa",
+		"datagrid"
+	],
+	"time" : "2016-02-19",
+	"license" : "MIT",
+	"authors" : [{
+			"name" : "Matthieu Vallance",
+			"email" : "matthieu.vallance@cscfa.fr",
+			"homepage" : "http://www.cscfa.fr",
+			"role" : "Developer"
+		}
+	],
+	"require" : {
+		"php" : ">=5.3.9",
+		"symfony/framework-bundle" : "~2.1"
+	},
+	"autoload" : {
+		"psr-4" : {
+			"Cscfa\\Bundle\\DataGridBundle\\" : ""
+		}
+	}
+}

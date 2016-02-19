@@ -1,0 +1,8 @@
+services:
+    cscfa_datagrid.extension:
+        class: Cscfa\Bundle\DataGridBundle\Twig\Extension\DatagridExtension
+        calls: 
+            - [setArguments, [ "%cscfa_datagrid_template%" ]]
+        public: false
+        tags:
+            - { name: twig.extension }

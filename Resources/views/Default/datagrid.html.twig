@@ -1,0 +1,102 @@
+
+{% block datagrid %}
+    {% set onGridStart %}{{ datagc("onGridStart", null, data.getStepper()) }}{% endset %}
+    {% set onGridStop %}{{ datagc("onGridStop", null, data.getStepper()) }}{% endset %}
+    {% set onGrid %}{{ datagc("onGrid", null, data.getStepper()) }}{% endset %}
+    {% set onGridPrepend %}{{ datagc("onGridPrepend", null, data.getStepper()) }}{% endset %}
+    {% set onGridAppend %}{{ datagc("onGridAppend", null, data.getStepper()) }}{% endset %}
+    
+    {{ onGridStart }}
+    <table {{ onGrid }}>
+        {{ onGridPrepend }}
+        
+        {% block header %}
+        
+            {% set onHeadStart %}{{ datagc("onHeadStart", null, data.getStepper()) }}{% endset %}
+            {% set onHeadStop %}{{ datagc("onHeadStop", null, data.getStepper()) }}{% endset %}
+            {% set onHead %}{{ datagc("onHead", null, data.getStepper()) }}{% endset %}
+            {% set onHeadPrepend %}{{ datagc("onHeadPrepend", null, data.getStepper()) }}{% endset %}
+            {% set onHeadAppend %}{{ datagc("onHeadAppend", null, data.getStepper()) }}{% endset %}
+            
+            {{ onHeadStart }}
+            {% if data.getHeader() is not empty %}
+                <tr {{ onHead }}>
+                    {{ onHeadPrepend }}
+                
+                    {% set onHeadElementStart %}{{ datagc("onHeadElementStart", null, data.getStepper()) }}{% endset %}
+                    {% set onHeadElementStop %}{{ datagc("onHeadElementStop", null, data.getStepper()) }}{% endset %}
+                    {% set onHeadElement %}{{ datagc("onHeadElement", null, data.getStepper()) }}{% endset %}
+                    {% set onHeadElementPrepend %}{{ datagc("onHeadElementPrepend", null, data.getStepper()) }}{% endset %}
+                    {% set onHeadElementAppend %}{{ datagc("onHeadElementAppend", null, data.getStepper()) }}{% endset %}
+                    
+                    {% for head in data.getHeader() %}
+                    {{ onHeadElementStart }}
+                    <th {{ onHeadElement }}>
+                        {{ onHeadElementPrepend }}
+                        {{ head }}
+                        {{ onHeadElementAppend }}
+                    </th>
+                    {{ onHeadElementStop }}
+                    {% endfor %}
+                    {{ onHeadAppend }}
+                </tr>
+            {% endif %}
+            {{ onHeadStop }}
+        {% endblock %}
+        
+        {% block body %}
+            {% set onBodyStart %}{{ datagc("onBodyStart", null, data.getStepper()) }}{% endset %}
+            {% set onBodyStop %}{{ datagc("onBodyStop", null, data.getStepper()) }}{% endset %}
+            {% set onBody %}{{ datagc("onBody", null, data.getStepper()) }}{% endset %}
+            {% set onBodyPrepend %}{{ datagc("onBodyPrepend", null, data.getStepper()) }}{% endset %}
+            {% set onBodyAppend %}{{ datagc("onBodyAppend", null, data.getStepper()) }}{% endset %}
+            
+            {{ onBodyStart }}
+            {{ onBody }}
+            {{ onBodyPrepend }}
+            
+            {% block row %}
+                {% for row in data.getData() %}
+                    
+                    {% set rowIndex = loop.index0 %}
+                    {% set onRowStart %}{{ datagc("onRowStart", rowIndex, data.getStepper()) }}{% endset %}
+                    {% set onRowStop %}{{ datagc("onRowStop", rowIndex, data.getStepper()) }}{% endset %}
+                    {% set onRow %}{{ datagc("onRow", rowIndex, data.getStepper()) }}{% endset %}
+                    {% set onRowPrepend %}{{ datagc("onRowPrepend", rowIndex, data.getStepper()) }}{% endset %}
+                    {% set onRowAppend %}{{ datagc("onRowAppend", rowIndex, data.getStepper()) }}{% endset %}
+                    
+                    {{ onRowStart }}
+                    <tr {{ onRow }}>
+                        {{ onRowPrepend }}
+                        
+                        {% for element in row %}
+                            
+                            {% set elementIndex = loop.index0 %}
+                            {% set onElementStart %}{{ datagc("onElementStart", rowIndex~':'~elementIndex, data.getStepper()) }}{% endset %}
+                            {% set onElementStop %}{{ datagc("onElementStop", rowIndex~':'~elementIndex, data.getStepper()) }}{% endset %}
+                            {% set onElement %}{{ datagc("onElement", rowIndex~':'~elementIndex, data.getStepper()) }}{% endset %}
+                            {% set onElementPrepend %}{{ datagc("onElementPrepend", rowIndex~':'~elementIndex, data.getStepper()) }}{% endset %}
+                            {% set onElementAppend %}{{ datagc("onElementAppend", rowIndex~':'~elementIndex, data.getStepper()) }}{% endset %}
+                            
+                            
+                            {{ onElementStart }}
+                            <td {{ onElement }}>
+                                {{ onElementPrepend }}
+                                {{ element }}
+                                {{ onElementAppend }}
+                            </td>
+                            {{ onElementStop }}
+                        {% endfor %}
+                        {{ onRowAppend }}
+                    </tr>
+                    {{ onRowStop }}
+                {% endfor %}
+            {% endblock %}
+            {{ onBodyAppend }}
+            {{ onBodyStop }}
+        {% endblock %}
+        
+        {{ onGridAppend }}
+    </table>
+    {{ onGridStop }}
+{% endblock %}
