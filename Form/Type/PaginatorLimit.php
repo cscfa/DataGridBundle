@@ -50,7 +50,7 @@ class PaginatorLimit extends AbstractType
     {
         $builder->add("page", "hidden", array())
             ->add("lastLimit", "hidden", array())
-            ->add("limit", "choice", array("choices"=>$options["data"]->getAllowedLimits(), "attr"=>array("selected"=>array_search($options["data"]->getLastLimit(), $options["data"]->getAllowedLimits()))))
+            ->add("limit", "choice", array("choices"=>$options["data"]->getAllowedLimits(), "data"=>array_search($options["data"]->getLastLimit(), $options["data"]->getAllowedLimits()), "attr"=>array("selected"=>array_search($options["data"]->getLastLimit(), $options["data"]->getAllowedLimits()))))
             ->add("submit", "submit", array());
     }
 
