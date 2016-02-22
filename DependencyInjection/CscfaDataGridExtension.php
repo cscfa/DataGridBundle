@@ -58,5 +58,21 @@ class CscfaDataGridExtension extends Extension
         }
         
         $container->setParameter('cscfa_datagrid_template', $template);
+        
+        if (isset($config) && isset($config["paginator_template"])) {
+            $paginatorTemplate = $config["paginator_template"];
+        } else {
+            $paginatorTemplate = null;
+        }
+        
+        $container->setParameter('cscfa_paginator_template', $paginatorTemplate);
+        
+        if (isset($config) && isset($config["paginator_limit_template"])) {
+            $paginatorLimitTemplate = $config["paginator_limit_template"];
+        } else {
+            $paginatorLimitTemplate = null;
+        }
+        
+        $container->setParameter('cscfa_paginator_limit_template', $paginatorLimitTemplate);
     }
 }

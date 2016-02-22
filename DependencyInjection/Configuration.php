@@ -46,6 +46,12 @@ class Configuration implements ConfigurationInterface
         
         $rootNode->children()
             ->scalarNode("template")->defaultValue("CscfaDataGridBundle:Default:datagrid.html.twig")->end()
+            ->end()
+            ->children()
+            ->scalarNode("paginator_template")->defaultValue("CscfaDataGridBundle:Default:paginatorPageSelector.html.twig")->end()
+            ->end()
+            ->children()
+            ->scalarNode("paginator_limit_template")->defaultValue("CscfaDataGridBundle:Default:paginatorLimit.html.twig")->end()
             ->end();
         
         return $treeBuilder;

@@ -16,6 +16,7 @@
  */
 namespace Cscfa\Bundle\DataGridBundle\Objects;
 
+use Cscfa\Bundle\DataGridBundle\InterfaceOject\StepperInterface;
 /**
  * DataGridStepper class.
  *
@@ -59,9 +60,9 @@ class DataGridStepper
      * 
      * The default object constructor
      * 
-     * @param DataGridContainer $parent The current stepper parent
+     * @param StepperInterface $parent The current stepper parent
      */
-    public function __construct(DataGridContainer $parent = null)
+    public function __construct(StepperInterface $parent = null)
     {
         if ($parent !== null) {
             $parent->setStepper($this);
@@ -74,7 +75,7 @@ class DataGridStepper
      * Return the current stepper
      * parent.
      * 
-     * @return DataGridContainer
+     * @return StepperInterface
      */
     public function getParent()
     {
@@ -87,11 +88,11 @@ class DataGridStepper
      * Set the current stepper
      * parent.
      * 
-     * @param DataGridContainer $parent the parent
+     * @param StepperInterface $parent the parent
      * 
      * @return DataGridStepper
      */
-    public function setParent(DataGridContainer $parent)
+    public function setParent(StepperInterface $parent)
     {
         $this->parent = $parent;
         
@@ -147,7 +148,7 @@ class DataGridStepper
      * 
      * @throws \Exception If the index doesn't exist
      */
-    public function call($name, $index = null)
+    public function call($name, $index = null, $data = array())
     {
         $process = $this->parent->getProcessed();
         $type = $process["type"];
@@ -184,7 +185,9 @@ class DataGridStepper
                 );
             }
             
-            return $this->callbacks[$name][0]($type, $process, $row, $this->callbacks[$name][2]);
+            $additionalData = array_merge($this->callbacks[$name][2], $data);
+            
+            return $this->callbacks[$name][0]($type, $process, $row, $additionalData);
         }
     }
  

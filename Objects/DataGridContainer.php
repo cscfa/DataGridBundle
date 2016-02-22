@@ -16,6 +16,8 @@
  */
 namespace Cscfa\Bundle\DataGridBundle\Objects;
 
+use Cscfa\Bundle\DataGridBundle\InterfaceOject\StepperInterface;
+
 /**
  * DataGridContainer class.
  *
@@ -28,7 +30,7 @@ namespace Cscfa\Bundle\DataGridBundle\Objects;
  * @license  http://opensource.org/licenses/MIT MIT
  * @link     http://cscfa.fr
  */
-class DataGridContainer
+class DataGridContainer implements StepperInterface
 {
     /**
      * Datagrid container constant
@@ -308,7 +310,7 @@ class DataGridContainer
      * This methods allow to access 
      * to the steps processed datas.
      * 
-     * @return integer
+     * @return array
      */
     public function getProcessed()
     {

@@ -1,0 +1,45 @@
+
+{% block limit %}
+    {% set onLimitStart %}{{ datagc("onLimitStart", null, pager.getStepper()) }}{% endset %}
+    {% set onLimitStop %}{{ datagc("onLimitStop", null, pager.getStepper()) }}{% endset %}
+    {% set onLimitFirst = datagc("onLimitFirst", null, pager.getStepper())|default([]) %}
+    {% set onLimitEnd = datagc("onLimitEnd", null, pager.getStepper())|default([]) %}
+    {% set onLimitPrepend %}{{ datagc("onLimitPrepend", null, pager.getStepper()) }}{% endset %}
+    {% set onLimitAppend %}{{ datagc("onLimitAppend", null, pager.getStepper()) }}{% endset %}
+    
+    {{ onLimitStart }}
+    {{ form_start(form, onLimitFirst) }}
+    {{ onLimitPrepend }}
+    
+        {% block select %}
+            {% set onSelectLabelStart %}{{ datagc("onSelectLabelStart", null, pager.getStepper()) }}{% endset %}
+            {% set onSelectLabelStop %}{{ datagc("onSelectLabelStop", null, pager.getStepper()) }}{% endset %}
+            {% set onSelectLabel = datagc("onSelectLabel", null, pager.getStepper())|default([]) %}
+            
+            {% set onSelectStart %}{{ datagc("onSelectStart", null, pager.getStepper()) }}{% endset %}
+            {% set onSelectStop %}{{ datagc("onSelectStop", null, pager.getStepper()) }}{% endset %}
+            {% set onSelect = datagc("onSelect", null, pager.getStepper())|default([]) %}
+            
+            {{ onSelectLabelStart }}
+            {{ form_label(form.limit, onSelectLabel) }}
+            {{ onSelectLabelStop }}
+            
+            {{ onSelectStart }}
+            {{ form_widget(form.limit, onSelect) }}
+            {{ onSelectStop }}
+        {% endblock %}
+        
+        {% block submit %}
+            {% set onSubmitStart %}{{ datagc("onSubmitStart", null, pager.getStepper()) }}{% endset %}
+            {% set onSubmitStop %}{{ datagc("onSubmitStop", null, pager.getStepper()) }}{% endset %}
+            {% set onSubmit = datagc("onSubmit", null, pager.getStepper())|default([]) %}
+            
+            {{ onSubmitStart }}
+            {{ form_widget(form.submit, onSubmit) }}
+            {{ onSubmitStop }}
+        {% endblock %}
+        
+    {{ onLimitAppend }}
+    {{ form_end(form, onLimitEnd) }}
+    {{ onLimitStop }}
+{% endblock %}

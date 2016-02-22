@@ -1,0 +1,70 @@
+
+{% block pager %}
+    {% set onPagerStart %}{{ datagc("onPagerStart", null, pager.getStepper()) }}{% endset %}
+    {% set onPagerStop %}{{ datagc("onPagerStop", null, pager.getStepper()) }}{% endset %}
+    {% set onPager %}{{ datagc("onPager", null, pager.getStepper()) }}{% endset %}
+    {% set onPagerPreppend %}{{ datagc("onPagerPreppend", null, pager.getStepper()) }}{% endset %}
+    {% set onPagerAppend %}{{ datagc("onPagerAppend", null, pager.getStepper()) }}{% endset %}
+    
+    {{ onPagerStart }}
+    <nav {{ onPager }}>
+        {{ onPagerPreppend }}
+        
+        {% block pagedList %}
+        
+            {% set onPagerListStart %}{{ datagc("onPagerListStart", null, pager.getStepper()) }}{% endset %}
+            {% set onPagerListStop %}{{ datagc("onPagerListStop", null, pager.getStepper()) }}{% endset %}
+            {% set onPagerList %}{{ datagc("onPagerList", null, pager.getStepper()) }}{% endset %}
+            {% set onPagerListPreppend %}{{ datagc("onPagerListPreppend", null, pager.getStepper()) }}{% endset %}
+            {% set onPagerListAppend %}{{ datagc("onPagerListAppend", null, pager.getStepper()) }}{% endset %}
+            
+            {{ onPagerListStart }}
+            <ul {{ onPagerList }}>
+                {{ onPagerListPreppend }}
+                
+                {% block selector %}
+                    {% set current = pager.getPage() %}
+                    
+                    {% for page in start..end %}
+        
+                        {% set onSelectorContainerStart %}{{ datagc("onSelectorContainerStart", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onSelectorContainerStop %}{{ datagc("onSelectorContainerStop", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onSelectorContainer %}{{ datagc("onSelectorContainer", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onSelectorContainerPreppend %}{{ datagc("onSelectorContainerPreppend", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onSelectorContainerAppend %}{{ datagc("onSelectorContainerAppend", loop.index0, pager.getStepper()) }}{% endset %}
+                        
+                        {% set onSelectorStart %}{{ datagc("onSelectorStart", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onSelectorStop %}{{ datagc("onSelectorStop", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onSelector %}{{ datagc("onSelector", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onSelectorPreppend %}{{ datagc("onSelectorPreppend", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onSelectorAppend %}{{ datagc("onSelectorAppend", loop.index0, pager.getStepper()) }}{% endset %}
+                        {% set onHref = datagc("onHref", loop.index0, pager.getStepper(), {'page':page, 'limit':pager.getLimit()})|default("") %}
+                        
+                        {{ onSelectorContainerStart }}
+                        <li {{ onSelectorContainer }}>
+                            {{ onSelectorContainerPreppend }}
+                            
+                                {{ onSelectorStart }}
+                                <a {{ onSelector }} href="{{ onHref }}">
+                                    {{ onSelectorPreppend }}
+                                    {{ page }}
+                                    {{ onSelectorAppend }}
+                                </a>
+                                {{ onSelectorStop }}
+                            
+                            {{ onSelectorContainerAppend }}
+                        </li>
+                        {{ onSelectorContainerStop }}
+                        
+                    {% endfor %}
+                {% endblock %}
+                
+                {{ onPagerListAppend }}
+            </ul>
+            {{ onPagerListStop }}
+        {% endblock %}
+        
+        {{ onPagerAppend }}
+    </nav>
+    {{ onPagerStop }}
+{% endblock %}

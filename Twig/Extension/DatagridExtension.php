@@ -131,7 +131,7 @@ class DatagridExtension extends \Twig_Extension
      * 
      * @return string
      */
-    public function renderCallback($name, $index = null, DataGridStepper $stepper = null)
+    public function renderCallback($name, $index = null, DataGridStepper $stepper = null, $data = array())
     {
         if ($stepper === null) {
             if ($this->stepper === null) {
@@ -141,9 +141,9 @@ class DatagridExtension extends \Twig_Extension
         }
         
         if (! $stepper->isSafe($name)) {
-            return htmlentities(html_entity_decode(($stepper->call($name, $index))));
+            return htmlentities(html_entity_decode(($stepper->call($name, $index, $data))));
         } else {
-            return $stepper->call($name, $index);
+            return $stepper->call($name, $index, $data);
         }
     }
 
