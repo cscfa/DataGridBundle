@@ -15,3 +15,6 @@
  * update DataGrid stepper to access additional data
  * update 'datagc' to aquire additional data
  * register paginatorLimit form
+
+### 1.2.0 (2016-02-27)
+ * allow access method to be chained with '.' delimiter

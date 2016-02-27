@@ -1,5 +1,5 @@
 # DataGrid bundle documentation
-### Version: 1.1.0
+### Version: 1.2.0
 
 The DataGrid bundle allow to display a datagrid into twig template.
 
@@ -88,6 +88,14 @@ And define each arguments with this :
 	$dataGrid->setType(DataGridContainer::TYPE_OBJECT);
 	
 	$this->render("AcmeBundle:Default:index.html.twig", array("data"=>$dataGrid));
+```
+
+Since version 1.2.0, the DataGridContainer allow to use chained access method by using a '.' delimiter bteween each access method.
+
+```php
+    //This access to $miscs->getBag()->getName()
+    $dataGrid->setContainer($miscs);
+    $dataGrid->setAccessMethods("getBag.getName");
 ```
 
 ### Advanced use with callbacks

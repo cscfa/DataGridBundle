@@ -396,13 +396,9 @@ class DataGridContainer implements StepperInterface
             
             foreach ($access as $method) {
                 
-                if (!method_exists($element, $method)) {
-                    throw new \Exception(sprintf("The method %s doesn't exist", $method), 500);
-                } else {
-                    $data = $element->{$method}();
-                    $datas[$position][] = $data;
-                    $this->processed[$i][$j] = array("access"=>$method, "data"=>$data);
-                }
+                $data = $this->accessToObject($method, $element);
+                $datas[$position][] = $data;
+                $this->processed[$i][$j] = array("access"=>$method, "data"=>$data);
                 $j ++;
             }
             $i ++;
@@ -441,19 +437,71 @@ class DataGridContainer implements StepperInterface
             
             foreach ($access as $key) {
                 
-                if (!array_key_exists($key, $element)) {
-                    throw new \Exception(sprintf("The key %s doesn't exist", $key), 500);
-                } else {
-                    $data = $element[$key];
-                    $datas[$position][] = $data;
-                    $this->processed[$i][$j] = array("access"=>$key, "data"=>$data);
-                }
+                $data = $this->accessToArray($key, $element);
+                $datas[$position][] = $data;
+                $this->processed[$i][$j] = array("access"=>$key, "data"=>$data);
                 $j ++;
             }
             $i ++;
         }
         
         return $datas;
+    }
+    
+    /**
+     * Access to array
+     * 
+     * This method extract data
+     * from an array.
+     * 
+     * @param string $access  The access method
+     * @param array  $element The array whence extract the data
+     * 
+     * @throws \Exception If one of the key doesn't exist
+     * @return mixed
+     */
+    protected function accessToArray($access, $element)
+    {
+        $accessList = explode(".", $access);
+        $currentAccess = $element;
+        
+        foreach ($accessList as $accessElement) {
+            if (!array_key_exists($accessElement, $currentAccess)) {
+                throw new \Exception(sprintf("The key %s doesn't exist", $accessElement), 500);
+            } else {
+                $currentAccess = $currentAccess[$accessElement];
+            }
+        }
+        
+        return $currentAccess;
+    }
+    
+    /**
+     * Access to object
+     * 
+     * This method extract data
+     * from an object.
+     * 
+     * @param string $access  The access method
+     * @param array  $element The object whence extract the data
+     * 
+     * @throws \Exception If one of the method doesn't exist
+     * @return mixed
+     */
+    protected function accessToObject($access, $element)
+    {
+        $accessList = explode(".", $access);
+        $currentAccess = $element;
+        
+        foreach ($accessList as $accessElement) {
+            if (!method_exists($currentAccess, $accessElement)) {
+                throw new \Exception(sprintf("The method %s doesn't exist", $accessElement), 500);
+            } else {
+                $currentAccess = $currentAccess->{$accessElement}();
+            }
+        }
+        
+        return $currentAccess;
     }
  
 }
